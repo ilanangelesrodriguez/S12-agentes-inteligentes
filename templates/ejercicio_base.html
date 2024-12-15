@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Ejercicio Base: Predicción de Demanda</h1>
+
+    <form method="POST">
+        <label for="nueva_venta">Ingrese el valor de ventas pasadas:</label>
+        <input type="number" name="nueva_venta" id="nueva_venta" value="{{ nueva_venta if nueva_venta is not none else '' }}" required>
+        <button type="submit">Predecir Demanda</button>
+    </form>
+
+    {% if prediccion is not none %}
+        <h3>Predicción de Demanda:</h3>
+        <p>Para un valor de ventas pasadas de {{ nueva_venta }} unidades, la predicción de demanda es {{ prediccion|round(2) }} unidades.</p>
+    {% endif %}
+
+    <h3>Gráfico de la Regresión Lineal</h3>
+    <img src="data:image/png;base64,{{ graph_url }}" alt="Gráfico de Predicción">
+</div>
+{% endblock %}

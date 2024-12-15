@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Mejora 3: Visualización de Gráficos de Predicción</h2>
+
+    {% if error_msg %}
+    <div class="alert alert-danger">{{ error_msg }}</div>
+    {% endif %}
+
+    <form method="POST" class="text-center">
+        <button type="submit" class="btn btn-primary mb-4">Generar Predicciones y Gráficos</button>
+    </form>
+
+    {% if predicciones %}
+    <div class="alert alert-success">
+        <h3>Predicción de Demanda para Ventas Pasadas 90 con Promoción 1: {{ predicciones[0] }}</h3>
+    </div>
+    {% endif %}
+
+    {% if img %}
+    <h4 class="mt-4">Gráfico de Predicción vs Datos Reales</h4>
+    <img src="data:image/png;base64,{{ img }}" class="img-fluid" alt="Predicciones vs Reales">
+    {% endif %}
+
+    {% if img_residual %}
+    <h4 class="mt-4">Gráfico de Residuos</h4>
+    <img src="data:image/png;base64,{{ img_residual }}" class="img-fluid" alt="Gráfico de Residuos">
+    {% endif %}
+
+    {% if img_hist %}
+    <h4 class="mt-4">Histograma de Errores</h4>
+    <img src="data:image/png;base64,{{ img_hist }}" class="img-fluid" alt="Histograma de Errores">
+    {% endif %}
+</div>
+{% endblock %}

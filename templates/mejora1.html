@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Mejora 1: Predicción de Demanda</h2>
+    <p>Ingrese los valores de ventas pasadas, estacionalidad y promoción para predecir la demanda.</p>
+
+    <form method="POST" action="{{ url_for('mejora1') }}">
+        <div class="form-group">
+            <label for="ventas_pasadas">Ventas Pasadas</label>
+            <input type="number" class="form-control" id="ventas_pasadas" name="ventas_pasadas" value="{{ nueva_venta }}" required>
+        </div>
+        <div class="form-group">
+            <label for="estacionalidad">Estacionalidad</label>
+            <select class="form-control" id="estacionalidad" name="estacionalidad" required>
+                <option value="1" {% if estacionalidad == 1 %}selected{% endif %}>Invierno</option>
+                <option value="2" {% if estacionalidad == 2 %}selected{% endif %}>Primavera</option>
+                <option value="3" {% if estacionalidad == 3 %}selected{% endif %}>Verano</option>
+                <option value="4" {% if estacionalidad == 4 %}selected{% endif %}>Otoño</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="promocion">Promoción Activa</label>
+            <select class="form-control" id="promocion" name="promocion" required>
+                <option value="0" {% if promocion == 0 %}selected{% endif %}>No</option>
+                <option value="1" {% if promocion == 1 %}selected{% endif %}>Sí</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Predecir Demanda</button>
+    </form>
+
+    {% if prediccion is not none %}
+        <h4 class="mt-4">Predicción de Demanda: {{ prediccion|round(2) }}</h4>
+        <div class="mt-4">
+            <h5>Gráfica de Predicción</h5>
+            <img src="data:image/png;base64,{{ img }}" alt="Gráfica de Predicción" class="img-fluid">
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Mejora 2: Predicción de Demanda con CSV</h2>
+    <p>Cargue un archivo CSV para predecir la demanda en base a los datos.</p>
+
+    <form method="POST" action="{{ url_for('mejora2') }}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="csv_file">Seleccionar archivo CSV</label>
+            <input type="file" class="form-control" id="csv_file" name="csv_file" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Subir y Predecir</button>
+    </form>
+
+    {% if error_msg %}
+        <div class="alert alert-danger mt-4">
+            <strong>Error:</strong> {{ error_msg }}
+        </div>
+    {% endif %}
+
+    {% if csv_data is not none and not csv_data.empty %}
+        <h4 class="mt-4">Datos cargados del CSV</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Semana</th>
+                    <th>Ventas Pasadas</th>
+                    <th>Estacionalidad</th>
+                    <th>Promoción</th>
+                    <th>Demanda</th>
+                    <th>Predicción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(csv_data|length) %}
+                    <tr>
+                        <td>{{ csv_data['Semana'][i] }}</td>
+                        <td>{{ csv_data['Ventas_Pasadas'][i] }}</td>
+                        <td>{{ csv_data['Estacionalidad'][i] }}</td>
+                        <td>{{ csv_data['Promocion'][i] }}</td>
+                        <td>{{ csv_data['Demanda'][i] }}</td>
+                        <td>{{ predicciones[i]|round(2) }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    {% if img %}
+        <div class="mt-4">
+            <h5>Gráfica de Predicción</h5>
+            <img src="data:image/png;base64,{{ img }}" alt="Gráfica de Predicción" class="img-fluid">
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

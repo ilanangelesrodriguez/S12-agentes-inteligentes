@@ -1,19 +1,36 @@
-<head>
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+{% extends 'base.html' %}
 
-<body>
-    <div class="App">
-        <header class="App-header">
-            <img src="{{ url_for('static', filename='Octocat.png') }}" class="App-logo" alt="logo" />
-            <p>
-                GitHub Codespaces <span class="heart">♥️</span> Flask
-            </p>
-            <p class="small">
-                Edit <code>templates/index.html</code> and refresh to see your changes!
-            </p>
-        </header>
+{% block content %}
+    <h1>Bienvenido a la Predicción de Demanda</h1>
+    <p>Selecciona un ejercicio o mejora para comenzar.</p>
+    
+    <div class="cards-container">
+        <div class="card">
+            <a href="/ejercicio_base">
+                <h3>Ejercicio Base</h3>
+                <p>Predicción de demanda utilizando solo ventas pasadas.</p>
+            </a>
+        </div>
+        
+        <div class="card">
+            <a href="/mejora1">
+                <h3>Mejora 1: Más Variables Predictoras</h3>
+                <p>Incluir variables como promociones y estacionalidad.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="/mejora2">
+                <h3>Mejora 2: Cargar Datos desde CSV</h3>
+                <p>Cargar datos de un archivo CSV para la predicción.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="/mejora3">
+                <h3>Mejora 3: Visualización de Resultados</h3>
+                <p>Mostrar los resultados en gráficos.</p>
+            </a>
+        </div>
     </div>
-</body>
-
-</html>
+{% endblock %}
